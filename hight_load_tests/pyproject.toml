@@ -1,0 +1,20 @@
+[project]
+name = "hight-load-tests"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "locust>=2.33.2",
+]
+
+[tool.locust]
+locustfile = "locust_files/my_locust_file.py"
+headless = true
+master = true
+expect-workers = 5
+host = "https://target-system"
+users = 100
+spawn-rate = 10
+run-time = "10m"
+tags = ["Critical", "Normal"]

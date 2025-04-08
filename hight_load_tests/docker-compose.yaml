@@ -1,0 +1,30 @@
+
+services:
+  master:
+    image: locustio/locust
+    ports:
+     - "8089:8089"
+    volumes:
+      - ./:/app
+    command: -f /app/main.py --master -H http://master:8089
+    networks:
+      - locust
+      - api-network
+  
+  worker:
+    image: locustio/locust
+    volumes:
+      - ./:/app
+    command: -f /app/main.py --worker --master-host master
+    networks:
+      - locust
+      - api-network
+
+networks:
+  locust:
+    driver: bridge
+    name: locust
+  api-network:
+    external:
+      name: app-network
+      
